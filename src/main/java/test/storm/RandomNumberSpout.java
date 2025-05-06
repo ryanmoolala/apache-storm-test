@@ -3,8 +3,6 @@ package test.storm;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.hadoop.thirdparty.org.checkerframework.checker.units.qual.s;
-import org.apache.storm.daemon.nimbus.TopoCache;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -28,10 +26,9 @@ public class RandomNumberSpout extends BaseRichSpout {
     @Override
     public void nextTuple() {
         // Generate a random number between 0 and 100
-        int randomNumber = random.nextInt(10);
+        int randomNumber = random.nextInt(100);
         long timestamp = System.currentTimeMillis();
-        // Emit the random number
-        collector.emit(new Values(randomNumber));
+        collector.emit(new Values(randomNumber, timestamp));
         // Sleep for a short period to simulate data generation
         try {
             Thread.sleep(1000);
